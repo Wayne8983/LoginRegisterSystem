@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         Enumerator:["Admin","User"],
-        type:String,
-        required:true
+        type:String
+        
     },
     refreshToken:{
         type:String

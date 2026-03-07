@@ -2,6 +2,7 @@ const express = require("express");
 const {register,login, generateNewAccessToken, logout} = require("../Controllers/AuthControllers");
 const verifyToken = require("../middleware/Authmiddleware");
 const authorizeRoles = require("../middleware/verifyrole");
+const {updateUser, deleteUser} = require("../Controllers/user.controllers");
 const router = express.Router();
 
 
@@ -9,7 +10,9 @@ const router = express.Router();
 router.post('/register',register);
 router.post('/login',login);
 router.post('/refresh',generateNewAccessToken);
-router.delete("/logout",logout)
+router.delete("/logout",logout);
+router.patch('/update',updateUser);
+router.delete('/delete',deleteUser);
 router.get('/profile',verifyToken,(req,res)=>{
     res.status(200).json({
         user:req.user,
