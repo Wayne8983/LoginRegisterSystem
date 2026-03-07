@@ -24,10 +24,46 @@ const updateUser = async(req,res)=>{
     } catch (error) {
         return res.status(500).json({
             success:false,
-            error:err.message
+            error:error.message
         })
     }
 }
 
 
-module.exports = updateUser;
+const deleteUser = async(req,res)=>{
+    const token = req.cookies?.refreshToken;
+    if (!token){
+        return res.status(401).json({
+            success:false,
+            error:"token not provided"
+        });
+    }
+    try {
+        const user = await Users.findOneAndDelete({refreshToken:token});
+        if(!user){
+            return res.status(404).json({
+                success:false,
+                error:"User not found"
+            });
+        }
+        return res.status(200).json({
+            success:true,
+            message:"Account deleted successfully"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            error:error.message
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+module.exports = {updateUser,deleteUser};
