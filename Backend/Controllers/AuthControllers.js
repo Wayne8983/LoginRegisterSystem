@@ -33,7 +33,7 @@ const register = async(req,res)=>{
             name,
             email,
             password:hash,
-            role:"Admin"
+            role:"User"
         });
         return res.status(201).json({
             success:true,
